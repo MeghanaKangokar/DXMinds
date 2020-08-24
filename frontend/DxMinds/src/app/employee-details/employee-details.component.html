@@ -25,10 +25,9 @@
                         </label>
                         <label class="image-upload-container btn btn-bwm">
                             <span>Profile Image</span>
-                            <img src="./../../assets/defaultProfile.jpg" id="image">
-                            <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput, i)"
-                                formControlName="Image">
-                            <button (click)="removeImage(i)">Remove Image</button>
+                            <input #imageInput type="file" accept="image/*" (change)="processFile($event, i)"
+                                formControlName="Image" id="image">
+                            <button (click)="removeImage(i, imageInput)">Remove Image</button>
                         </label>
                     </div>
                 </div>

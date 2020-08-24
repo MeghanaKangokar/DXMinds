@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const employeeRoute = express.Router();
+var multer = require('multer');
+var fs = require('fs');
 
 // Employee model
 let Employee = require('../models/Employee');

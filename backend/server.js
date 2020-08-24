@@ -20,15 +20,15 @@ mongoose.connect(dbConfig.db, {
 // Setting up port with express js
 const employeeRoute = require('../backend/routes/employee.route')
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({
-   extended: false
+   extended: false,
+   limit: '50mb'
 }));
-app.use(cors()); 
+app.use(cors('http://localhost:4200')); 
 app.use(express.static(path.join(__dirname, 'dist/frontend/DxMinds')));
 app.use('/', express.static(path.join(__dirname, 'dist/frontend/DxMinds')));
 app.use('/api', employeeRoute)
-
 // Create port
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {

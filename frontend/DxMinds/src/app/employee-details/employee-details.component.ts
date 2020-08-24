@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { EmployeeService } from '../service';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) { }
@@ -19,7 +20,7 @@ export class EmployeeDetailsComponent implements OnInit {
     employeeDetails: new FormArray([])
   });
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(public employeeService: EmployeeService) { }
 
   ngOnInit(): void {
   }
@@ -41,25 +42,25 @@ export class EmployeeDetailsComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   public processFile(imageInput: any, index: any) {
-    const file: File = imageInput.files[0];
     const reader = new FileReader();
-    reader.addEventListener('load', (event: any) => {
-      this.selectedFile = new ImageSnippet(event.target.result, file);
-    });
-    reader.readAsDataURL(file);
+    const blob = new Blob([imageInput.target.files[0]], {type: 'image/*'});
     const CompanyDetails = this.companyDetails.get('employeeDetails') as FormArray;
-    console.log((CompanyDetails.value)[index]);
-    console.log(document.getElementById('image').getAttribute('src'));
-    document.getElementById('image').setAttribute('src', (CompanyDetails.value)[index].Image);
+    reader.readAsDataURL(blob);
+    reader.onloadend = () => {
+    (CompanyDetails.value)[index].Image = reader.result;
+    };
   }
 
-  public removeImage(index: any) {
+  public removeImage(index: any, imageInput: any) {
     const CompanyDetails = this.companyDetails.get('employeeDetails') as FormArray;
-    console.log((CompanyDetails.value)[index]);
+    (CompanyDetails.value)[index].Image = '';
+    imageInput.value = '';
   }
 
   onSubmit() {
     console.log(this.companyDetails.value);
+    this.employeeService.addEmployees(this.companyDetails.value).subscribe(data => {});
+
   }
 
 }

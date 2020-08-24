@@ -10,7 +10,7 @@ let Employee = new Schema({
       type: String
    },
    employeeDetails: {
-      type: Array
+      type: [{Name: String, EmailId: String, Image: String}]
    }
 }, {
    collection: 'employees'
