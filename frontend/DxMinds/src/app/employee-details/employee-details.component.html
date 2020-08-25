@@ -1,38 +1,51 @@
-<form [formGroup]="companyDetails" (ngSubmit)="onSubmit()">
+<form [formGroup]="companyDetails" class="border border-primary">
     <div>
-        <label>
-            Company Name:
-            <input type="text" formControlName="companyName">
-        </label>
-
-        <label>
-            Location:
-            <input type="text" formControlName="location">
-        </label>
+        <div class="form-group">
+            <label>
+                Company Name:
+                <input type="text" formControlName="companyName" class="form-control">
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                Location:
+                <input type="text" formControlName="location" class="form-control">
+            </label>
+        </div>
         <div>
-            <button (click)="addEmployee()">Add Employee</button>
-            <div *ngIf="numberOfEmployees > 0">
+            <button (click)="addEmployee()" class="btn btn-secondary btn-sm">Add Employee +</button>
+            <div *ngIf="numberOfEmployees > 0" class="employees">
                 <div formArrayName="employeeDetails"
                     *ngFor="let employeeDetail of companyDetails.get('employeeDetails').controls; let i = index; let last = last">
-                    <div [formGroupName]="i">
-                        <label>
-                            Name:
-                            <input type="text" formControlName="Name">
-                        </label>
-                        <label>
-                            Email-id:
-                            <input type="text" formControlName="EmailId">
-                        </label>
-                        <label class="image-upload-container btn btn-bwm">
-                            <span>Profile Image</span>
-                            <input #imageInput type="file" accept="image/*" (change)="processFile($event, i)"
-                                formControlName="Image" id="image">
-                            <button (click)="removeImage(i, imageInput)">Remove Image</button>
-                        </label>
+                    <div class="employeeCard border border-secondary">
+                        <div [formGroupName]="i" class="addEmployee">
+                            <div>Image:</div>
+                            <div>
+                                <input #imageInput type="file" accept="image/*" (change)="processFile($event, i, imagesrc)"
+                                    formControlName="Image" id="image" class="form-control">
+                            </div>
+                            <div>
+                                <button (click)="removeImage(i, imageInput)" class="btn btn-outline-danger btn-sm">X</button>
+                            </div>
+                        </div>
+                        <div [formGroupName]="i">
+                            <div class="form-group">
+                                <label>
+                                    Name:
+                                    <input type="text" formControlName="Name" class="form-control">
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Email-id:
+                                    <input type="text" formControlName="EmailId" class="form-control">
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
 </form>

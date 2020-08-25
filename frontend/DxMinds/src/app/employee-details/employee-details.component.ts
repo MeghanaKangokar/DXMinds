@@ -41,7 +41,7 @@ export class EmployeeDetailsComponent implements OnInit {
   }
 
   // tslint:disable-next-line: typedef
-  public processFile(imageInput: any, index: any) {
+  public processFile(imageInput: any, index: any, imagesrc: any) {
     const reader = new FileReader();
     const blob = new Blob([imageInput.target.files[0]], {type: 'image/*'});
     const CompanyDetails = this.companyDetails.get('employeeDetails') as FormArray;
@@ -60,7 +60,6 @@ export class EmployeeDetailsComponent implements OnInit {
   onSubmit() {
     console.log(this.companyDetails.value);
     this.employeeService.addEmployees(this.companyDetails.value).subscribe(data => {});
-
   }
 
 }
