@@ -3,17 +3,14 @@ const Schema = mongoose.Schema;
 
 // Define collection and schema
 let Employee = new Schema({
-   name: {
+   companyName: {
       type: String
    },
-   email: {
+   location: {
       type: String
    },
-   designation: {
-      type: String
-   },
-   phoneNumber: {
-      type: Number
+   employeeDetails: {
+      type: Array
    }
 }, {
    collection: 'employees'

@@ -1,0 +1,39 @@
+<form [formGroup]="companyDetails" (ngSubmit)="onSubmit()">
+    <div>
+        <label>
+            Company Name:
+            <input type="text" formControlName="companyName">
+        </label>
+
+        <label>
+            Location:
+            <input type="text" formControlName="location">
+        </label>
+        <div>
+            <button (click)="addEmployee()">Add Employee</button>
+            <div *ngIf="numberOfEmployees > 0">
+                <div formArrayName="employeeDetails"
+                    *ngFor="let employeeDetail of companyDetails.get('employeeDetails').controls; let i = index; let last = last">
+                    <div [formGroupName]="i">
+                        <label>
+                            Name:
+                            <input type="text" formControlName="Name">
+                        </label>
+                        <label>
+                            Email-id:
+                            <input type="text" formControlName="EmailId">
+                        </label>
+                        <label class="image-upload-container btn btn-bwm">
+                            <span>Profile Image</span>
+                            <img src="./../../assets/defaultProfile.jpg" id="image">
+                            <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput, i)"
+                                formControlName="Image">
+                            <button (click)="removeImage(i)">Remove Image</button>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit">Submit</button>
+</form>
